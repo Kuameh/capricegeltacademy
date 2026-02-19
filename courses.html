@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | CGA — Caprice Gelt Academy</title>
+    <meta name="description"
+        content="Elite trading curricula for Gold, Stocks, and Oil. Explore our EPP, YEP, and VIS-A-VIS programs.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="courses.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body class="courses-page">
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="scrolled"> <!-- Always scrolled/frosted on this page -->
+        <a href="index.html" class="logo">
+            <img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">
+            CGA ACADEMY
+        </a>
+        <div class="nav-links">
+            <a href="index.html#features" class="nav-item">About</a>
+            <a href="courses.html" class="nav-item active">Courses</a>
+            <a href="index.html#referrals" class="nav-item">Referrals</a>
+            <a href="index.html#contact" class="nav-item">Contact</a>
+        </div>
+        <a href="https://wa.me/233598933808" target="_blank" class="cta-small">💬 WhatsApp Us</a>
+    </nav>
+
+    <!-- ======================== COURSE HERO ======================== -->
+    <section class="course-hero">
+        <div class="section-inner">
+            <div class="hero-content fade-in">
+                <div class="compliance-badge">
+                    <div class="status-dot"></div>
+                    <span class="label-technical">PROFESSIONAL CURRICULA</span>
+                </div>
+                <h1>THE MASTERY<br><span class="accent-gold">PATHWAY</span></h1>
+                <p class="hero-sub">
+                    Move beyond simple signal groups. Our programs are designed to transform you into a professional
+                    market operator with deep technical and psychological foundations.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== TRADING PLAYGROUND ======================== -->
+    <section class="playground-section">
+        <div class="section-inner">
+            <div class="playground-container" id="market-playground">
+                <canvas id="flux-canvas"></canvas>
+                <div class="playground-overlay">
+                    <div class="playground-info">
+                        <h2 class="label-technical">INTERACTIVE MARKET FLUX</h2>
+                        <p>Interact with the sectors to reveal our educational focus.</p>
+                    </div>
+                    <div class="sector-cards">
+                        <div class="sector-node" data-course="epp">
+                            <span class="node-icon">AU</span>
+                            <span class="node-label">GOLD & OIL</span>
+                        </div>
+                        <div class="sector-node" data-course="yep">
+                            <span class="node-icon">FX</span>
+                            <span class="node-label">FOUNDATIONS</span>
+                        </div>
+                        <div class="sector-node" data-course="vivi">
+                            <span class="node-icon">1:1</span>
+                            <span class="node-label">MENTORSHIP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== COURSE DETAILS ======================== -->
+    <section class="course-details" id="course-details">
+        <div class="section-inner">
+
+            <!-- EPP -->
+            <div class="course-track visible" id="course-epp">
+                <div class="track-grid">
+                    <div class="track-info">
+                        <div class="track-badge">MOST POPULAR</div>
+                        <h2>EPP: EXECUTIVE PROFESSIONAL PROGRAM</h2>
+                        <p class="track-intro">Our flagship curriculum for those serious about institutional-grade
+                            trading in the commodities market.</p>
+
+                        <div class="curriculum-list">
+                            <div class="curriculum-item">
+                                <div class="item-id">01</div>
+                                <div class="item-content">
+                                    <h3>Macro Liquidity Cycles</h3>
+                                    <p>Understanding when central banks and institutions are entering the gold market.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="curriculum-item">
+                                <div class="item-id">02</div>
+                                <div class="item-content">
+                                    <h3>Advanced Price Action</h3>
+                                    <p>Mastering candlestick psychology and architectural market structure.</p>
+                                </div>
+                            </div>
+                            <div class="curriculum-item">
+                                <div class="item-id">03</div>
+                                <div class="item-content">
+                                    <h3>The Billionaire's Edge</h3>
+                                    <p>Risk management strategies used by 7-figure traders to preserve capital.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/233598933808" class="btn-primary">Enroll in EPP <div class="btn-arrow">➜
+                            </div></a>
+                    </div>
+                    <div class="track-visual">
+                        <div class="visual-card">
+                            <div class="card-header">
+                                <span class="label-technical">REVENUE FOCUS</span>
+                                <span class="value-mono">XAU/USD</span>
+                            </div>
+                            <div class="visual-placeholder gold-glow">
+                                <!-- Interactive chart/element would go here -->
+                                <div class="chart-mock"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YEP -->
+            <div class="course-track" id="course-yep">
+                <!-- Similarly styled for YEP -->
+                <div class="track-grid">
+                    <div class="track-info">
+                        <div class="track-badge">ACCESSIBLE LEARNING</div>
+                        <h2>YEP: YOUTH EMPOWERMENT PROGRAM</h2>
+                        <p class="track-intro">A foundational course designed to give young professionals a sustainable
+                            alternative income stream.</p>
+
+                        <div class="curriculum-list">
+                            <div class="curriculum-item">
+                                <div class="item-id">01</div>
+                                <div class="item-content">
+                                    <h3>Trading Foundations</h3>
+                                    <p>The basics of currency pairs, lots, and pips with professional clarity.</p>
+                                </div>
+                            </div>
+                            <div class="curriculum-item">
+                                <div class="item-id">02</div>
+                                <div class="item-content">
+                                    <h3>Side-Income Psychology</h3>
+                                    <p>Balancing a 9-5 with high-probability morning/evening trades.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/233598933808" class="btn-primary">Start with YEP <div class="btn-arrow">➜
+                            </div></a>
+                    </div>
+                    <div class="track-visual">
+                        <div class="visual-card">
+                            <div class="visual-placeholder fx-glow">
+                                <div class="chart-mock"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIS-A-VIS -->
+            <div class="course-track" id="course-vivi">
+                <div class="track-grid">
+                    <div class="track-info">
+                        <div class="track-badge">ELITE ACCESS</div>
+                        <h2>VIS-A-VIS: ONE-ON-ONE MENTORSHIP</h2>
+                        <p class="track-intro">The fastest way to professional mastery. Direct, personalized coaching
+                            from our Master Traders.</p>
+
+                        <div class="curriculum-list">
+                            <div class="curriculum-item">
+                                <div class="item-id">MAX</div>
+                                <div class="item-content">
+                                    <h3>Personal Strategy Crafting</h3>
+                                    <p>We build a bespoke trading plan around your personality and schedule.</p>
+                                </div>
+                            </div>
+                            <div class="curriculum-item">
+                                <div class="item-id">LIVE</div>
+                                <div class="item-content">
+                                    <h3>Live Execution Sessions</h3>
+                                    <p>Trade the markets in real-time alongside your mentor.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/233598933808" class="btn-primary">Apply for Mentorship <div
+                                class="btn-arrow">➜</div></a>
+                    </div>
+                    <div class="track-visual">
+                        <div class="visual-card">
+                            <div class="visual-placeholder elite-glow">
+                                <div class="chart-mock"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer copied from index.html -->
+    <footer class="footer">
+        <div class="section-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo"><img src="assets/images/cga-logo.svg" alt="CGA Logo"
+                            class="logo-img">CGA ACADEMY</a>
+                    <p>The Billionaires Enclave. Excellence in trading education for over a decade.</p>
+                </div>
+                <!-- ... other footer parts ... -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CGA ACADEMY. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="courses.js"></script>
+</body>
+
+</html>
