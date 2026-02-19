@@ -1,0 +1,602 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Offramp // USDC-INR</title>
+    <style vid="5">
+        :root {
+            --bg-deep: #000000;
+            --bg-panel: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #666666;
+            --text-tertiary: #444444;
+            --accent-lime: #D4FF00; 
+            --accent-glow: rgba(212, 255, 0, 0.4);
+            --border-dim: #222222;
+            --border-dash: #333333;
+            --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: "Space Mono", "Courier New", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .label-technical {
+            font-family: var(--font-main);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .value-mono {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+        }
+
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        .grid-line-v {
+            border-right: 1px dashed var(--border-dim);
+            height: 100%;
+        }
+
+        .grid-line-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px dashed var(--border-dim);
+        }
+
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: exclusion;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-lime);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+        }
+
+        .cta-small {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 100px; 
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-small:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        
+        main {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 40px;
+            gap: 80px;
+            align-items: center;
+        }
+
+        
+        .hero-text {
+            position: relative;
+        }
+
+        h1 {
+            font-size: 82px;
+            line-height: 0.9;
+            margin-bottom: 32px;
+            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 400px;
+            margin-bottom: 48px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 48px;
+            padding-top: 32px;
+            border-top: 1px dashed var(--border-dim);
+        }
+
+        .stat-block h4 {
+            font-size: 32px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        
+        .converter-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        
+        .radar-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--border-dim);
+        }
+
+        .radar-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid var(--border-dim);
+        }
+
+        .ring-1 { width: 80%; height: 80%; border-style: dashed; opacity: 0.5; }
+        .ring-2 { width: 60%; height: 60%; border-color: #333; }
+        .ring-3 { width: 40%; height: 40%; border-color: #222; background: radial-gradient(circle, #0a0a0a 0%, #000 100%); }
+
+        
+        .acid-arc {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 230deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(212, 255, 0, 0.1) 60%,
+                var(--accent-lime) 80%,
+                transparent 100%
+            );
+            mask-image: radial-gradient(transparent 62%, black 63%);
+            -webkit-mask-image: radial-gradient(transparent 62%, black 63%);
+            opacity: 0.8;
+            filter: blur(8px);
+            animation: pulse-rotate 8s infinite linear;
+        }
+        
+        .acid-arc-sharp {
+             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 230deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(212, 255, 0, 0.0) 60%,
+                var(--accent-lime) 80%,
+                transparent 100%
+            );
+            mask-image: radial-gradient(transparent 68%, black 69%);
+            -webkit-mask-image: radial-gradient(transparent 68%, black 69%);
+            opacity: 1;
+             animation: pulse-rotate 8s infinite linear;
+        }
+
+        @keyframes pulse-rotate {
+            0% { transform: rotate(0deg); opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0.6; }
+        }
+
+        
+        .converter-card {
+            position: relative;
+            z-index: 2;
+            width: 320px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid #333;
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .currency-input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 32px;
+            font-weight: 500;
+            width: 100%;
+            font-family: var(--font-mono);
+            outline: none;
+        }
+
+        .currency-input::placeholder {
+            color: #333;
+        }
+
+        .currency-badge {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            background: #111;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        .divider-icon {
+            display: flex;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            margin: -8px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .divider-line {
+            width: 1px;
+            height: 20px;
+            background: var(--border-dim);
+        }
+
+        .btn-primary {
+            background: var(--accent-lime);
+            color: black;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.02);
+        }
+
+        .btn-arrow {
+            width: 20px;
+            height: 20px;
+            background: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 10px;
+        }
+
+        
+        .hud-label {
+            position: absolute;
+            color: var(--text-secondary);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        .hl-top { top: 10px; left: 50%; transform: translateX(-50%); }
+        .hl-right { top: 50%; right: -20px; transform: translateY(-50%) rotate(90deg); }
+        .hl-bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .hl-left { top: 50%; left: -20px; transform: translateY(-50%) rotate(-90deg); }
+
+        
+        .scanner {
+            position: absolute;
+            width: 50%;
+            height: 1px;
+            background: var(--accent-lime);
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            animation: scan 4s infinite linear;
+            opacity: 0.5;
+            box-shadow: 0 0 10px var(--accent-lime);
+        }
+
+        @keyframes scan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            top: 65%;
+            left: 65%;
+            z-index: 5;
+            animation: ping 2s infinite;
+        }
+        
+        @keyframes ping {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .compliance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--accent-lime);
+        }
+
+    </style>
+</head>
+<body vid="6">
+
+    
+    <div class="grid-overlay" vid="7">
+        <div class="grid-line-v" vid="8"></div>
+        <div class="grid-line-v" vid="9"></div>
+        <div class="grid-line-v" vid="10"></div>
+        <div class="grid-line-v" vid="11"></div>
+        <div class="grid-line-h" vid="12"></div>
+    </div>
+
+    
+    <nav vid="13">
+        <div class="logo" vid="14">OFFRAMP_PROTOCOL</div>
+        <div class="nav-links" vid="15">
+            <a href="#" class="nav-item" vid="16">Products</a>
+            <a href="#" class="nav-item" vid="17">Developers</a>
+            <a href="#" class="nav-item" vid="18">Compliance</a>
+            <a href="#" class="nav-item" vid="19">Company</a>
+        </div>
+        <button class="cta-small" vid="20">Connect Wallet</button>
+    </nav>
+
+    
+    <main vid="21">
+        <div class="content-wrapper" vid="22">
+            
+            
+            <div class="hero-text" vid="23">
+                <div class="compliance-badge" vid="24">
+                    <div class="status-dot" vid="25"></div>
+                    <span class="label-technical" style="color: #fff;" vid="26">FIU-REGISTERED ENTITY</span>
+                </div>
+                
+                <h1 vid="27">LIQUIDITY<br vid="28">SETTLEMENT</h1>
+                
+                <p class="hero-sub" vid="29">
+                    The compliant bridge for Web3 teams. Convert USDC to INR instantly with zero hidden fees. Send invoices, track flows, and settle directly to local banks.
+                </p>
+
+                <div class="stats-row" vid="30">
+                    <div class="stat-block" vid="31">
+                        <div class="label-technical" vid="32">AVG SETTLEMENT</div>
+                        <h4 class="value-mono" vid="33">4.2s</h4>
+                    </div>
+                    <div class="stat-block" vid="34">
+                        <div class="label-technical" vid="35">SUCCESS RATE</div>
+                        <h4 class="value-mono" vid="36">99.9%</h4>
+                    </div>
+                    <div class="stat-block" vid="37">
+                        <div class="label-technical" vid="38">TOTAL VOLUME</div>
+                        <h4 class="value-mono" vid="39">$420M+</h4>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="converter-container" vid="40">
+                
+                
+                <div class="radar-bg" vid="41"></div>
+                <div class="acid-arc" vid="42"></div>
+                <div class="acid-arc-sharp" vid="43"></div>
+                <div class="radar-ring ring-1" vid="44"></div>
+                <div class="radar-ring ring-2" vid="45"></div>
+                <div class="radar-ring ring-3" vid="46"></div>
+                <div class="scanner" vid="47"></div>
+                <div class="dot" vid="48"></div>
+
+                
+                <div class="hud-label hl-top" vid="49">REAL-TIME EXECUTION</div>
+                <div class="hud-label hl-right" vid="50">LIQUIDITY DEPTH</div>
+                <div class="hud-label hl-bottom" vid="51">NETWORK STATUS: OPTIMAL</div>
+                <div class="hud-label hl-left" vid="52">FIAT GATEWAY</div>
+
+                
+                <div class="converter-card" vid="53">
+                    <div class="input-group" vid="54">
+                        <div class="input-row" vid="55">
+                            <span class="label-technical" vid="56">YOU SEND</span>
+                            <span class="label-technical" vid="57">BAL: 4,200.00</span>
+                        </div>
+                        <div class="input-row" vid="58">
+                            <input type="text" class="currency-input" value="1,000" vid="59">
+                            <span class="currency-badge" vid="60">USDC</span>
+                        </div>
+                    </div>
+
+                    <div class="divider-icon" vid="61">
+                        <div class="divider-line" vid="62"></div>
+                    </div>
+
+                    <div class="input-group" vid="63">
+                        <div class="input-row" vid="64">
+                            <span class="label-technical" vid="65">YOU RECEIVE</span>
+                            <span class="label-technical" vid="66">RATE: 83.45</span>
+                        </div>
+                        <div class="input-row" vid="67">
+                            <input type="text" class="currency-input" value="83,450" readonly="" style="color: var(--accent-lime);" vid="68">
+                            <span class="currency-badge" vid="69">INR</span>
+                        </div>
+                    </div>
+
+                    <div style="height: 1px; background: #222; margin: 8px 0;" vid="70"></div>
+
+                    <div class="input-row" vid="71">
+                        <span class="label-technical" vid="72">NETWORK FEE</span>
+                        <span class="label-technical" style="color: #fff;" vid="73">$0.00</span>
+                    </div>
+
+                    <button class="btn-primary" vid="74">
+                        Initiate Offramp
+                        <div class="btn-arrow" vid="75">➜</div>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script vid="76">
+        
+        const rateDisplay = document.querySelector('input[readonly]');
+        const baseRate = 83.45;
+        
+        setInterval(() => {
+            const jitter = (Math.random() * 0.04) - 0.02;
+            const newRate = (baseRate + jitter).toFixed(2);
+            
+            
+            
+        }, 2000);
+    </script>
+
+</body></html>
