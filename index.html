@@ -1,602 +1,396 @@
-<html lang="en" vid="0"><head vid="1">
-    <meta charset="UTF-8" vid="2">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
-    <title vid="4">Offramp // USDC-INR</title>
-    <style vid="5">
-        :root {
-            --bg-deep: #000000;
-            --bg-panel: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #666666;
-            --text-tertiary: #444444;
-            --accent-lime: #D4FF00; 
-            --accent-glow: rgba(212, 255, 0, 0.4);
-            --border-dim: #222222;
-            --border-dash: #333333;
-            --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-mono: "Space Mono", "Courier New", monospace;
-        }
+<!DOCTYPE html>
+<html lang="en">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-primary);
-            font-family: var(--font-main);
-            overflow-x: hidden;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-        }
-
-        
-        h1, h2, h3 {
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .label-technical {
-            font-family: var(--font-main);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .value-mono {
-            font-family: var(--font-mono);
-            font-variant-numeric: tabular-nums;
-        }
-
-        
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-        }
-
-        .grid-line-v {
-            border-right: 1px dashed var(--border-dim);
-            height: 100%;
-        }
-
-        .grid-line-h {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            border-bottom: 1px dashed var(--border-dim);
-        }
-
-        
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 24px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            mix-blend-mode: exclusion;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: -0.03em;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo::before {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-lime);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-lime);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-item {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-item:hover {
-            color: var(--text-primary);
-        }
-
-        .cta-small {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            padding: 8px 16px;
-            border-radius: 100px; 
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cta-small:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        
-        main {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            height: 100%;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .content-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            width: 100%;
-            max-width: 1400px;
-            padding: 0 40px;
-            gap: 80px;
-            align-items: center;
-        }
-
-        
-        .hero-text {
-            position: relative;
-        }
-
-        h1 {
-            font-size: 82px;
-            line-height: 0.9;
-            margin-bottom: 32px;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-sub {
-            font-size: 18px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            max-width: 400px;
-            margin-bottom: 48px;
-        }
-
-        .stats-row {
-            display: flex;
-            gap: 48px;
-            padding-top: 32px;
-            border-top: 1px dashed var(--border-dim);
-        }
-
-        .stat-block h4 {
-            font-size: 32px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        
-        .converter-container {
-            position: relative;
-            width: 500px;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        
-        .radar-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid var(--border-dim);
-        }
-
-        .radar-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 1px solid var(--border-dim);
-        }
-
-        .ring-1 { width: 80%; height: 80%; border-style: dashed; opacity: 0.5; }
-        .ring-2 { width: 60%; height: 60%; border-color: #333; }
-        .ring-3 { width: 40%; height: 40%; border-color: #222; background: radial-gradient(circle, #0a0a0a 0%, #000 100%); }
-
-        
-        .acid-arc {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 230deg,
-                transparent 0%,
-                transparent 40%,
-                rgba(212, 255, 0, 0.1) 60%,
-                var(--accent-lime) 80%,
-                transparent 100%
-            );
-            mask-image: radial-gradient(transparent 62%, black 63%);
-            -webkit-mask-image: radial-gradient(transparent 62%, black 63%);
-            opacity: 0.8;
-            filter: blur(8px);
-            animation: pulse-rotate 8s infinite linear;
-        }
-        
-        .acid-arc-sharp {
-             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 230deg,
-                transparent 0%,
-                transparent 40%,
-                rgba(212, 255, 0, 0.0) 60%,
-                var(--accent-lime) 80%,
-                transparent 100%
-            );
-            mask-image: radial-gradient(transparent 68%, black 69%);
-            -webkit-mask-image: radial-gradient(transparent 68%, black 69%);
-            opacity: 1;
-             animation: pulse-rotate 8s infinite linear;
-        }
-
-        @keyframes pulse-rotate {
-            0% { transform: rotate(0deg); opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { transform: rotate(360deg); opacity: 0.6; }
-        }
-
-        
-        .converter-card {
-            position: relative;
-            z-index: 2;
-            width: 320px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid #333;
-            border-radius: 24px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .input-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .currency-input {
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 32px;
-            font-weight: 500;
-            width: 100%;
-            font-family: var(--font-mono);
-            outline: none;
-        }
-
-        .currency-input::placeholder {
-            color: #333;
-        }
-
-        .currency-badge {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            background: #111;
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #333;
-        }
-
-        .divider-icon {
-            display: flex;
-            justify-content: center;
-            color: var(--text-tertiary);
-            font-size: 12px;
-            margin: -8px 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .divider-line {
-            width: 1px;
-            height: 20px;
-            background: var(--border-dim);
-        }
-
-        .btn-primary {
-            background: var(--accent-lime);
-            color: black;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 20px var(--accent-glow);
-            transform: scale(1.02);
-        }
-
-        .btn-arrow {
-            width: 20px;
-            height: 20px;
-            background: black;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-lime);
-            font-size: 10px;
-        }
-
-        
-        .hud-label {
-            position: absolute;
-            color: var(--text-secondary);
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-        
-        .hl-top { top: 10px; left: 50%; transform: translateX(-50%); }
-        .hl-right { top: 50%; right: -20px; transform: translateY(-50%) rotate(90deg); }
-        .hl-bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
-        .hl-left { top: 50%; left: -20px; transform: translateY(-50%) rotate(-90deg); }
-
-        
-        .scanner {
-            position: absolute;
-            width: 50%;
-            height: 1px;
-            background: var(--accent-lime);
-            top: 50%;
-            left: 50%;
-            transform-origin: 0 0;
-            animation: scan 4s infinite linear;
-            opacity: 0.5;
-            box-shadow: 0 0 10px var(--accent-lime);
-        }
-
-        @keyframes scan {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px white;
-            top: 65%;
-            left: 65%;
-            z-index: 5;
-            animation: ping 2s infinite;
-        }
-        
-        @keyframes ping {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .compliance-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-lime);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--accent-lime);
-        }
-
-    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGA — Caprice Gelt Academy | Stocks, Gold & Oil Trading Institute</title>
+    <meta name="description"
+        content="Join the $3.8 Trillion global trading market. CGA offers professional forex, stocks, gold & oil trading courses. Registration ongoing.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
 </head>
-<body vid="6">
 
-    
-    <div class="grid-overlay" vid="7">
-        <div class="grid-line-v" vid="8"></div>
-        <div class="grid-line-v" vid="9"></div>
-        <div class="grid-line-v" vid="10"></div>
-        <div class="grid-line-v" vid="11"></div>
-        <div class="grid-line-h" vid="12"></div>
+<body>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
     </div>
+    <div class="grid-line-h"></div>
 
-    
-    <nav vid="13">
-        <div class="logo" vid="14">OFFRAMP_PROTOCOL</div>
-        <div class="nav-links" vid="15">
-            <a href="#" class="nav-item" vid="16">Products</a>
-            <a href="#" class="nav-item" vid="17">Developers</a>
-            <a href="#" class="nav-item" vid="18">Compliance</a>
-            <a href="#" class="nav-item" vid="19">Company</a>
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero" class="logo"><img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">CGA
+            ACADEMY</a>
+        <div class="nav-links">
+            <a href="#courses" class="nav-item">Courses</a>
+            <a href="#features" class="nav-item">About</a>
+            <a href="#referrals" class="nav-item">Referrals</a>
+            <a href="#contact" class="nav-item">Contact</a>
         </div>
-        <button class="cta-small" vid="20">Connect Wallet</button>
+        <a href="https://wa.me/233598933808" target="_blank" class="cta-small">💬 WhatsApp Us</a>
     </nav>
 
-    
-    <main vid="21">
-        <div class="content-wrapper" vid="22">
-            
-            
-            <div class="hero-text" vid="23">
-                <div class="compliance-badge" vid="24">
-                    <div class="status-dot" vid="25"></div>
-                    <span class="label-technical" style="color: #fff;" vid="26">FIU-REGISTERED ENTITY</span>
+    <!-- ======================== HERO ======================== -->
+    <section class="hero" id="hero">
+        <div class="content-wrapper">
+            <div class="hero-text">
+                <div class="compliance-badge">
+                    <div class="status-dot"></div>
+                    <span class="label-technical" style="color: #fff;">REGISTRATION ONGOING</span>
                 </div>
-                
-                <h1 vid="27">LIQUIDITY<br vid="28">SETTLEMENT</h1>
-                
-                <p class="hero-sub" vid="29">
-                    The compliant bridge for Web3 teams. Convert USDC to INR instantly with zero hidden fees. Send invoices, track flows, and settle directly to local banks.
+
+                <h1>ACCESS THE<br><span class="accent">$3.8 TRILLION</span><br>MARKET</h1>
+
+                <p class="hero-sub">
+                    Stocks, Gold & Oil — Trade and Investment Institute. Join the global trading market with over $3.8
+                    trillion in monthly volume. CGA, The Billionaires Enclave.
                 </p>
 
-                <div class="stats-row" vid="30">
-                    <div class="stat-block" vid="31">
-                        <div class="label-technical" vid="32">AVG SETTLEMENT</div>
-                        <h4 class="value-mono" vid="33">4.2s</h4>
+                <div class="hero-cta-row">
+                    <a href="#courses" class="btn-primary">
+                        View Courses
+                        <div class="btn-arrow">➜</div>
+                    </a>
+                    <a href="https://wa.me/233598933808" target="_blank" class="btn-outline">Register Now</a>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-block">
+                        <div class="label-technical">MONTHLY VOLUME</div>
+                        <h4 class="value-mono">$3.8T+</h4>
                     </div>
-                    <div class="stat-block" vid="34">
-                        <div class="label-technical" vid="35">SUCCESS RATE</div>
-                        <h4 class="value-mono" vid="36">99.9%</h4>
+                    <div class="stat-block">
+                        <div class="label-technical">EXPERIENCE</div>
+                        <h4 class="value-mono">10+ YRS</h4>
                     </div>
-                    <div class="stat-block" vid="37">
-                        <div class="label-technical" vid="38">TOTAL VOLUME</div>
-                        <h4 class="value-mono" vid="39">$420M+</h4>
+                    <div class="stat-block">
+                        <div class="label-technical">GLOBAL REACH</div>
+                        <h4 class="value-mono">24/7</h4>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="converter-container" vid="40">
-                
-                
-                <div class="radar-bg" vid="41"></div>
-                <div class="acid-arc" vid="42"></div>
-                <div class="acid-arc-sharp" vid="43"></div>
-                <div class="radar-ring ring-1" vid="44"></div>
-                <div class="radar-ring ring-2" vid="45"></div>
-                <div class="radar-ring ring-3" vid="46"></div>
-                <div class="scanner" vid="47"></div>
-                <div class="dot" vid="48"></div>
+            <!-- Radar System -->
+            <div class="converter-container">
+                <div class="radar-bg"></div>
+                <div class="acid-arc"></div>
+                <div class="acid-arc-sharp"></div>
+                <div class="radar-ring ring-1"></div>
+                <div class="radar-ring ring-2"></div>
+                <div class="radar-ring ring-3"></div>
+                <div class="scanner"></div>
+                <div class="dot dot-1"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
 
-                
-                <div class="hud-label hl-top" vid="49">REAL-TIME EXECUTION</div>
-                <div class="hud-label hl-right" vid="50">LIQUIDITY DEPTH</div>
-                <div class="hud-label hl-bottom" vid="51">NETWORK STATUS: OPTIMAL</div>
-                <div class="hud-label hl-left" vid="52">FIAT GATEWAY</div>
+                <div class="hud-label hl-top">LIVE MARKET ACCESS</div>
+                <div class="hud-label hl-right">STOCKS • GOLD • OIL</div>
+                <div class="hud-label hl-bottom">NETWORK STATUS: ACTIVE</div>
+                <div class="hud-label hl-left">FOREX GATEWAY</div>
 
-                
-                <div class="converter-card" vid="53">
-                    <div class="input-group" vid="54">
-                        <div class="input-row" vid="55">
-                            <span class="label-technical" vid="56">YOU SEND</span>
-                            <span class="label-technical" vid="57">BAL: 4,200.00</span>
-                        </div>
-                        <div class="input-row" vid="58">
-                            <input type="text" class="currency-input" value="1,000" vid="59">
-                            <span class="currency-badge" vid="60">USDC</span>
+                <div class="radar-center-content">
+                    <div class="value-mono" id="live-rate">AAPL</div>
+                    <span class="label-technical">LIVE FEED</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== TICKER BAR ======================== -->
+    <div class="ticker-bar">
+        <div class="ticker-track" id="ticker">
+            <div class="ticker-item"><span class="symbol">AAPL</span> 189.84 <span class="up">▲ +1.2%</span></div>
+            <div class="ticker-item"><span class="symbol">XAU/USD</span> 2,024.50 <span class="up">▲ +0.8%</span></div>
+            <div class="ticker-item"><span class="symbol">EUR/USD</span> 1.0872 <span class="down">▼ -0.3%</span></div>
+            <div class="ticker-item"><span class="symbol">CRUDE OIL</span> 78.45 <span class="up">▲ +0.5%</span></div>
+            <div class="ticker-item"><span class="symbol">TSLA</span> 205.66 <span class="up">▲ +2.1%</span></div>
+            <div class="ticker-item"><span class="symbol">GBP/USD</span> 1.2634 <span class="down">▼ -0.1%</span></div>
+            <div class="ticker-item"><span class="symbol">AMZN</span> 178.25 <span class="up">▲ +0.9%</span></div>
+            <div class="ticker-item"><span class="symbol">BRENT</span> 82.30 <span class="up">▲ +0.4%</span></div>
+            <!-- Duplicated for seamless loop -->
+            <div class="ticker-item"><span class="symbol">AAPL</span> 189.84 <span class="up">▲ +1.2%</span></div>
+            <div class="ticker-item"><span class="symbol">XAU/USD</span> 2,024.50 <span class="up">▲ +0.8%</span></div>
+            <div class="ticker-item"><span class="symbol">EUR/USD</span> 1.0872 <span class="down">▼ -0.3%</span></div>
+            <div class="ticker-item"><span class="symbol">CRUDE OIL</span> 78.45 <span class="up">▲ +0.5%</span></div>
+            <div class="ticker-item"><span class="symbol">TSLA</span> 205.66 <span class="up">▲ +2.1%</span></div>
+            <div class="ticker-item"><span class="symbol">GBP/USD</span> 1.2634 <span class="down">▼ -0.1%</span></div>
+            <div class="ticker-item"><span class="symbol">AMZN</span> 178.25 <span class="up">▲ +0.9%</span></div>
+            <div class="ticker-item"><span class="symbol">BRENT</span> 82.30 <span class="up">▲ +0.4%</span></div>
+        </div>
+    </div>
+
+    <!-- ======================== COURSES / PRICING ======================== -->
+    <section class="section" id="courses">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="compliance-badge" style="margin: 0 auto 20px;">
+                    <div class="status-dot"></div>
+                    <span class="label-technical" style="color: #fff;">LIMITED TIME OFFER</span>
+                </div>
+                <h2>OUR PACKAGES</h2>
+                <p>Select the package that fits your trading ambitions. All courses include professional-grade market
+                    analysis training.</p>
+            </div>
+
+            <div class="pricing-grid stagger-children">
+                <!-- EPP Card -->
+                <div class="pricing-card fade-in">
+                    <div class="card-badge">40% OFF</div>
+                    <div>
+                        <div class="card-title">Endless Possibilities Package</div>
+                        <div class="card-subtitle">Individual registration — full course access for one student.</div>
+                    </div>
+                    <div class="card-price-row">
+                        <span class="card-price">$150</span>
+                        <span class="card-price-original">$250</span>
+                    </div>
+                    <div class="card-referral">
+                        <span>Referral Code:</span>
+                        <code>EPP$100B</code>
+                    </div>
+                    <ul class="card-features">
+                        <li>Complete forex, stocks, gold & oil curriculum</li>
+                        <li>Pre-recorded video access for 60 days</li>
+                        <li>Live interactive trading sessions</li>
+                        <li>Single device registration</li>
+                        <li>Personal CGA Student ID</li>
+                    </ul>
+                    <a href="https://wa.me/233598933808?text=I%20want%20to%20register%20for%20the%20EPP%20package"
+                        target="_blank" class="btn-primary" style="text-align:center; justify-content:center;">
+                        Register Now <div class="btn-arrow">➜</div>
+                    </a>
+                </div>
+
+                <!-- YEP Card (Featured) -->
+                <div class="pricing-card featured fade-in">
+                    <div class="card-badge">🔥 50% OFF — BEST VALUE</div>
+                    <div>
+                        <div class="card-title">Youth Empowerment Package</div>
+                        <div class="card-subtitle">Group of five friends — learn together, grow together.</div>
+                    </div>
+                    <div class="card-price-row">
+                        <span class="card-price">$250</span>
+                        <span class="card-price-original">$500</span>
+                    </div>
+                    <div class="card-referral">
+                        <span>Referral Code:</span>
+                        <code>YEP$100B</code>
+                    </div>
+                    <ul class="card-features">
+                        <li>Everything in EPP</li>
+                        <li>5 device registrations included</li>
+                        <li>Group study & collaboration tools</li>
+                        <li>Only $50 per person</li>
+                        <li>Perfect for study groups & clubs</li>
+                    </ul>
+                    <a href="https://wa.me/233598933808?text=I%20want%20to%20register%20for%20the%20YEP%20package"
+                        target="_blank" class="btn-primary" style="text-align:center; justify-content:center;">
+                        Register Now <div class="btn-arrow">➜</div>
+                    </a>
+                </div>
+
+                <!-- VIS-A-VIS Card -->
+                <div class="pricing-card fade-in">
+                    <div class="card-badge">👑 PREMIUM — 25% OFF</div>
+                    <div>
+                        <div class="card-title">Vis-A-Vis With CGA</div>
+                        <div class="card-subtitle">One-on-one, in-person mentorship sessions with CGA experts.</div>
+                    </div>
+                    <div class="card-price-row">
+                        <span class="card-price">$3,100</span>
+                        <span class="card-price-original">$4,000</span>
+                    </div>
+                    <div class="card-referral">
+                        <span>Referral Code:</span>
+                        <code>VAV$100B</code>
+                    </div>
+                    <ul class="card-features">
+                        <li>Exclusive 1-on-1 in-person sessions</li>
+                        <li>Tailored investment strategies</li>
+                        <li>Direct access to CGA senior analysts</li>
+                        <li>Ideal for institutions & HNW individuals</li>
+                        <li>Premium portfolio management training</li>
+                    </ul>
+                    <a href="https://wa.me/233598933808?text=I%20want%20to%20register%20for%20the%20VIS-A-VIS%20package"
+                        target="_blank" class="btn-primary" style="text-align:center; justify-content:center;">
+                        Register Now <div class="btn-arrow">➜</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ======================== WHAT TO EXPECT ======================== -->
+    <section class="section" id="features">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <h2>WHAT TO EXPECT</h2>
+                <p>A world-class trading education experience designed for global learners at every level.</p>
+            </div>
+
+            <div class="features-grid stagger-children">
+
+                <!-- VIDEO CARD: Pre-Recorded Videos -->
+                <div class="feature-card feat-video fade-in" id="video-card">
+                    <div class="video-wrapper">
+                        <video id="preview-video" muted loop playsinline preload="metadata"
+                            poster="https://images.pexels.com/videos/3945008/4k-after-effects-analysis-animation-3945008.jpeg?auto=compress&cs=tinysrgb&w=1200">
+                            <source src="https://videos.pexels.com/video-files/3945008/3945008-uhd_3840_2160_30fps.mp4"
+                                type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="video-badge">Pre-Recorded</div>
+                        <div class="video-info">
+                            <div>
+                                <div class="feature-icon">🎥</div>
+                                <h3>Pre-Recorded Videos</h3>
+                                <p>Learn at your own pace with our professionally produced course content. Available
+                                    24/7
+                                    across all time zones.</p>
+                            </div>
+                            <button class="video-play-btn" id="video-play-btn" aria-label="Play or pause video">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"><span></span><span></span></div>
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="divider-icon" vid="61">
-                        <div class="divider-line" vid="62"></div>
-                    </div>
+                <!-- CURATED INVESTMENTS (Tall) -->
+                <div class="feature-card feat-curated fade-in">
+                    <div class="feature-icon">💎</div>
+                    <h3>Curated Investments</h3>
+                    <p>We believe in curated investment entries. Our top-notch research is why we've produced consistent
+                        tradable gold signals for over a decade. We identify high-probability opportunities so you can
+                        trade with confidence.</p>
+                </div>
 
-                    <div class="input-group" vid="63">
-                        <div class="input-row" vid="64">
-                            <span class="label-technical" vid="65">YOU RECEIVE</span>
-                            <span class="label-technical" vid="66">RATE: 83.45</span>
-                        </div>
-                        <div class="input-row" vid="67">
-                            <input type="text" class="currency-input" value="83,450" readonly="" style="color: var(--accent-lime);" vid="68">
-                            <span class="currency-badge" vid="69">INR</span>
-                        </div>
-                    </div>
+                <!-- MULTILINGUAL -->
+                <div class="feature-card feat-multi fade-in">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Multilingual Support</h3>
+                    <p>Eliminating language barriers and opening doors globally. Technical support and education
+                        available
+                        in multiple global languages.</p>
+                </div>
 
-                    <div style="height: 1px; background: #222; margin: 8px 0;" vid="70"></div>
-
-                    <div class="input-row" vid="71">
-                        <span class="label-technical" vid="72">NETWORK FEE</span>
-                        <span class="label-technical" style="color: #fff;" vid="73">$0.00</span>
-                    </div>
-
-                    <button class="btn-primary" vid="74">
-                        Initiate Offramp
-                        <div class="btn-arrow" vid="75">➜</div>
-                    </button>
+                <!-- LIVE SESSIONS -->
+                <div class="feature-card feat-live fade-in">
+                    <div class="live-badge">Live</div>
+                    <div class="feature-icon">🎯</div>
+                    <h3>Live Interactive Sessions</h3>
+                    <p>Experience real-time market analysis and get your questions answered by veteran traders with
+                        over a decade of experience.</p>
                 </div>
 
             </div>
         </div>
-    </main>
+    </section>
 
-    <script vid="76">
-        
-        const rateDisplay = document.querySelector('input[readonly]');
-        const baseRate = 83.45;
-        
-        setInterval(() => {
-            const jitter = (Math.random() * 0.04) - 0.02;
-            const newRate = (baseRate + jitter).toFixed(2);
-            
-            
-            
-        }, 2000);
-    </script>
+    <hr class="section-divider">
 
-</body></html>
+    <!-- ======================== DATA POLICY ======================== -->
+    <section class="section" id="policy">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <h2>DATA POLICY</h2>
+                <p>Transparency and protection for all our students.</p>
+            </div>
+
+            <div class="policy-grid stagger-children">
+                <div class="policy-item fade-in">
+                    <div class="icon">⏱️</div>
+                    <h4>60-Day Access</h4>
+                    <p>Online lessons are accessible within 60 days. After which you register anew.</p>
+                </div>
+                <div class="policy-item fade-in">
+                    <div class="icon">🚀</div>
+                    <h4>Activate When Ready</h4>
+                    <p>Only activate your package when fully ready to commit — countdown begins right after
+                        registration.</p>
+                </div>
+                <div class="policy-item fade-in">
+                    <div class="icon">📱</div>
+                    <h4>Device Limits</h4>
+                    <p>EPP is limited to 1 device. YEP supports up to 5 devices for your full study group.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ======================== REFERRAL PROGRAM ======================== -->
+    <section class="section" id="referrals">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <h2>REFERRAL PROGRAM</h2>
+                <p>Earn commissions by referring students. Every student gets a unique CGA referral ID.</p>
+            </div>
+
+            <div class="referral-tiers stagger-children">
+                <div class="tier-card fade-in">
+                    <div class="tier-number">1%</div>
+                    <h4>Starter Tier</h4>
+                    <p>Earn 1% commission per registration. Withdrawals unlock after 10 successful referrals.</p>
+                </div>
+                <div class="tier-card fade-in">
+                    <div class="tier-number">1.5%</div>
+                    <h4>Growth Tier</h4>
+                    <p>Unlocks at 30 referrals. Higher commission rate for your growing network.</p>
+                </div>
+                <div class="tier-card fade-in">
+                    <div class="tier-number">2%</div>
+                    <h4>Elite Tier</h4>
+                    <p>Fixed 2% commission after 70 referrals. Net commission capped at $2,000.</p>
+                </div>
+            </div>
+
+            <div class="referral-note fade-in">
+                Your dashboard provides <strong>full transparency</strong> — see detailed registration status for all
+                your referrals. Portal opens for withdrawals after <strong>10 minimum referrals</strong>.
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== CTA BANNER ======================== -->
+    <section class="cta-banner" id="contact">
+        <div class="compliance-badge" style="margin: 0 auto 24px;">
+            <div class="status-dot"></div>
+            <span class="label-technical" style="color: #fff;">REGISTRATION ONGOING</span>
+        </div>
+        <h2>START TRADING<br>WITH CGA</h2>
+        <div class="tagline">THE BILLIONAIRES ENCLAVE</div>
+        <p>Don't just USE an iPhone — PROFIT from them. For stocks like Apple (AAPL), let us teach you how. WhatsApp us
+            to begin your journey.</p>
+        <a href="https://wa.me/233598933808" target="_blank" class="btn-primary">
+            Contact us now
+            <div class="btn-arrow">➜</div>
+        </a>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ======================== FOOTER ======================== -->
+    <footer>
+        <a href="#hero" class="logo"><img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">CGA
+            ACADEMY</a>
+        <p>© Caprice Gelt Academy. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#courses">Courses</a>
+            <a href="#policy">Policy</a>
+            <a href="https://wa.me/233598933808" target="_blank">Contact</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
