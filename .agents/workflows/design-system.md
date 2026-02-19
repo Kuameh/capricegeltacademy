@@ -29,7 +29,7 @@ This document defines the visual design system used in the CGA Academy (Caprice 
 
 | Style | Specs | Usage |
 | :--- | :--- | :--- |
-| **Hero Heading** | `82px`, `600`, Line-height `0.9` | Main page titles. Gradient: `linear-gradient(180deg, #fff 0%, #aaa 100%)`. |
+| **Hero Heading** | `72px`, `600`, Line-height `0.95` | Main page titles. Gradient: `linear-gradient(180deg, #fff 0%, #aaa 100%)`. |
 | **Section Heading** | `600`, Letter-spacing `-0.02em` | H1, H2, H3 default. |
 | **Technical Label** | `10px`, `500`, Uppercase, `0.15em` letter-spacing | Metadata, HUD labels, input headers. |
 | **Values (Mono)** | `Mono font`, `tabular-nums` | Numerical data, amounts, and rates. |
@@ -43,12 +43,16 @@ This document defines the visual design system used in the CGA Academy (Caprice 
 ### Bento Grid Layout
 A dynamic, asymmetric grid system for hierarchical feature showcase.
 - **Desktop Implementation**: `grid-template-areas` with 3 columns and 2 rows.
+    - `video video curated`
+    - `multi  live  curated`
 - **Responsive Stack**: 
-    - Tablet (992px): 2-column layout.
+    - Tablet (992px): 1-column layout (standard stack).
     - Mobile (768px): Single-column vertical stack.
-- **Card Spans**: 
-    - `.feat-video`: Spans 2 columns.
-    - `.feat-curated`: Spans 2 rows (tall).
+- **Card Assignments**: 
+    - `.feat-video`: `grid-area: video`
+    - `.feat-curated`: `grid-area: curated`
+    - `.feat-multi`: `grid-area: multi`
+    - `.feat-live`: `grid-area: live`
 
 ### Logo & Favicon
 The brand identity is centered around the official CGA SVG logo.
@@ -87,6 +91,7 @@ A premium content card with embedded media.
     - Play/Pause toggle on click.
     - Glassmorphic `.video-play-btn` (`backdrop-filter: blur(16px)`).
 - **Badges**: Floating `.video-badge` at top-left.
+- **Poster/Source**: High-resolution stock footage (e.g., UHD/4K trading-related animations).
 
 ### Status Badges
 Used for live indicators and content categorisation.
