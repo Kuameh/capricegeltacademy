@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — CGA Academy</title>
+    <meta name="description" content="Create your CGA Academy student account to access professional trading courses.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+    </div>
+
+    <section class="auth-page">
+        <div class="auth-container">
+            <a href="index.html" class="auth-logo">
+                <img src="assets/images/cga-logo.svg" alt="CGA Logo">
+                CGA ACADEMY
+            </a>
+
+            <div class="auth-card">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Sign up to start your trading journey with CGA.</p>
+
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" placeholder="you@example.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Min. 6 characters" required autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="Re-enter password" required autocomplete="new-password">
+                    </div>
+
+                    <div id="auth-error" class="auth-error"></div>
+
+                    <button type="submit" class="btn-auth">Create Account</button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Flag to prevent onAuthStateChanged from redirecting during signup
+        window._isSigningUp = false;
+
+        // Redirect only if user was ALREADY logged in (not during signup)
+        auth.onAuthStateChanged((user) => {
+            if (user && !window._isSigningUp) window.location.href = 'dashboard.html';
+        });
+        initSignup();
+    </script>
+</body>
+
+</html>
