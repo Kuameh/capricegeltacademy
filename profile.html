@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — CGA Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+    </div>
+
+    <!-- Auth Loading -->
+    <div id="auth-loading" class="auth-loading">
+        <div class="loader-spinner"></div>
+        <p>Loading profile...</p>
+    </div>
+
+    <!-- Dashboard Content (hidden until auth) -->
+    <div id="dashboard-content" style="display: none;">
+
+        <!-- Dashboard Nav -->
+        <nav class="dash-nav">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">
+                CGA ACADEMY
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="profile.html" class="nav-item" style="color: var(--accent-lime);">Profile</a>
+            </div>
+            <div class="nav-right">
+                <div class="user-badge">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <span id="user-name"></span>
+                </div>
+                <button class="btn-logout" onclick="logout()">Sign Out</button>
+            </div>
+        </nav>
+
+        <main class="dash-main">
+            <div class="welcome-banner">
+                <h1>Your Profile</h1>
+                <p>Manage your account details and view enrollment status.</p>
+            </div>
+
+            <div class="admin-grid">
+                <!-- Account Info -->
+                <div class="admin-panel">
+                    <h3>Account Information</h3>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="profile-name" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="profile-email" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <input type="text" id="profile-role" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Member Since</label>
+                        <input type="text" id="profile-since" readonly style="opacity: 0.7;">
+                    </div>
+                </div>
+
+                <!-- Change Password -->
+                <div class="admin-panel">
+                    <h3>Change Password</h3>
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" placeholder="Min. 6 characters" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" placeholder="Re-enter new password" required>
+                        </div>
+                        <button type="submit" class="btn-auth">Update Password</button>
+                    </form>
+                    <div id="password-message" class="admin-message"></div>
+                </div>
+            </div>
+
+            <!-- Enrollment History -->
+            <div class="admin-panel" style="margin-bottom: 40px;">
+                <h3>Enrollment History</h3>
+                <div id="enrollment-history" style="overflow-x: auto;">
+                    <p style="color: var(--text-secondary); font-size: 13px;">Loading...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>
