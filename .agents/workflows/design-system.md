@@ -116,3 +116,22 @@ Used for live indicators and content categorisation.
 4. **Interactive Video**: Use `IntersectionObserver` to autoplay muted preview videos when they enter the viewport.
 5. **Shimmer Animation**: Implemented via `::after` pseudo-element with a moving linear gradient.
 
+---
+
+## 5. Application UI Components
+
+### Authentication Pages
+- **Layout**: Centered `.auth-page` container taking minimum full viewport height.
+- **Card Styling**: Black glassmorphism (`rgba(10, 10, 10, 0.8)`) with `blur(20px)` backdrop-filter and `.border-dash` outer line.
+- **Inputs**: Solid borders (`var(--border-dim)`) with glowing gold focus ring (`rgba(255, 184, 0, 0.08)` and `var(--accent-lime)` border).
+- **Buttons**: Core CTA utilizes solid `var(--accent-lime)` with scale transform (`scale(1.02)`) and gold shadow on hover.
+
+### Dashboard Layout
+- **Navigation**: Fixed top bar with strong blur effect (`blur(30px)`) and slightly transparent black background (`rgba(0, 0, 0, 0.6)`).
+- **User Avatar**: Initial-based avatar with subtle gold tint background (`rgba(255, 184, 0, 0.12)`).
+- **Grid Lists**: Courses displayed using auto-fill max grid layout (`minmax(340px, 1fr)`). Progress is shown via circular SVG charts with animated dashed offsets.
+
+### Course Viewer
+- **Layout Model**: Asymmetric grid (`300px 1fr`).
+- **Sidebar**: Sticky sticky menu listing modules and nested lessons with chevron rotations for active states.
+- **Video Player Integration**: 16:9 ratio blocks featuring dark, minimal placeholder states before media load.
