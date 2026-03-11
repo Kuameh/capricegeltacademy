@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Viewer — CGA Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body>
+
+    <!-- Auth Loading -->
+    <div id="auth-loading" class="auth-loading">
+        <div class="loader-spinner"></div>
+        <p>Loading course...</p>
+    </div>
+
+    <!-- Dashboard Content (hidden until auth) -->
+    <div id="dashboard-content" style="display: none;">
+
+        <!-- Dashboard Nav -->
+        <nav class="dash-nav">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">
+                CGA ACADEMY
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+            </div>
+            <div class="nav-right">
+                <div class="user-badge">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <span id="user-name"></span>
+                </div>
+                <button class="btn-logout" onclick="logout()">Sign Out</button>
+            </div>
+        </nav>
+
+        <!-- Viewer Layout -->
+        <div class="viewer-layout">
+            <!-- Sidebar -->
+            <aside class="viewer-sidebar" id="lesson-sidebar">
+                <div class="sidebar-header">
+                    <h3 id="course-title">Loading...</h3>
+                    <p id="course-progress">0% complete</p>
+                </div>
+                <div id="modules-list"></div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="viewer-main">
+                <div class="video-container" id="video-container">
+                    <div class="video-placeholder" id="video-placeholder">
+                        <div class="placeholder-icon">🎬</div>
+                        <p>Select a lesson to begin</p>
+                    </div>
+                    <video id="lesson-video" controls style="display: none;"></video>
+                </div>
+
+                <div class="lesson-info">
+                    <h2 id="lesson-title">Select a lesson</h2>
+                    <p id="lesson-description">Choose a lesson from the sidebar to start learning.</p>
+                </div>
+
+                <div class="lesson-nav">
+                    <button class="btn-lesson-nav" id="btn-prev" disabled>Previous</button>
+                    <button class="btn-lesson-nav" id="btn-next" disabled>Next Lesson</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/course-viewer.js"></script>
+</body>
+
+</html>

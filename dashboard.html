@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — CGA Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+    </div>
+
+    <!-- Auth Loading -->
+    <div id="auth-loading" class="auth-loading">
+        <div class="loader-spinner"></div>
+        <p>Verifying access...</p>
+    </div>
+
+    <!-- Dashboard Content (hidden until auth) -->
+    <div id="dashboard-content" style="display: none;">
+
+        <!-- Dashboard Nav -->
+        <nav class="dash-nav">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">
+                CGA ACADEMY
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item" style="color: var(--accent-lime);">Dashboard</a>
+                <a href="profile.html" class="nav-item">Profile</a>
+            </div>
+            <div class="nav-right">
+                <div class="user-badge">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <span id="user-name"></span>
+                </div>
+                <button class="btn-logout" onclick="logout()">Sign Out</button>
+            </div>
+        </nav>
+
+        <main class="dash-main">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h1 id="welcome-heading">Welcome back</h1>
+                <p>Your trading education hub. Access your courses, track progress, and continue learning.</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="dash-stats" id="dash-stats">
+                <div class="dash-stat-card">
+                    <span class="label-technical">Enrolled Courses</span>
+                    <div class="value-mono" id="stat-courses">0</div>
+                </div>
+                <div class="dash-stat-card">
+                    <span class="label-technical">Lessons Completed</span>
+                    <div class="value-mono" id="stat-lessons">0</div>
+                </div>
+                <div class="dash-stat-card">
+                    <span class="label-technical">Active Enrollments</span>
+                    <div class="value-mono" id="stat-active">0</div>
+                </div>
+            </div>
+
+            <!-- Course Cards (populated by JS) -->
+            <h3 class="courses-section-title" id="courses-title">MY COURSES</h3>
+            <div id="courses-container"></div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
