@@ -6,12 +6,13 @@
    ============================================ */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCIEn5aMyyyAaO3KUPpyHWHxOdF8pvpJsA",
-    authDomain: "cga-firestore.firebaseapp.com",
-    projectId: "cga-firestore",
-    storageBucket: "cga-firestore.firebasestorage.app",
-    messagingSenderId: "297504505033",
-    appId: "1:297504505033:web:eecc4bcccf621bff55a118"
+    apiKey: import.meta.env.CGA_FIREBASE_API_KEY,
+    authDomain: import.meta.env.CGA_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.CGA_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.CGA_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.CGA_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.CGA_FIREBASE_APP_ID,
+    measurementId: import.meta.env.CGA_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase (compat global)
