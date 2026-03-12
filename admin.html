@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — CGA Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/cga-logo.svg">
+</head>
+
+<body data-require-admin="true">
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay">
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+        <div class="grid-line-v"></div>
+    </div>
+
+    <!-- Auth Loading -->
+    <div id="auth-loading" class="auth-loading">
+        <div class="loader-spinner"></div>
+        <p>Verifying admin access...</p>
+    </div>
+
+    <!-- Admin Content (hidden until auth) -->
+    <div id="dashboard-content" style="display: none;">
+
+        <!-- Dashboard Nav -->
+        <nav class="dash-nav">
+            <a href="dashboard.html" class="logo">
+                <img src="assets/images/cga-logo.svg" alt="CGA Logo" class="logo-img">
+                CGA ACADEMY
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="admin.html" class="nav-item" style="color: var(--accent-lime);">Admin</a>
+            </div>
+            <div class="nav-right">
+                <div class="user-badge">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <span id="user-name"></span>
+                </div>
+                <button class="btn-logout" onclick="logout()">Sign Out</button>
+            </div>
+        </nav>
+
+        <main class="dash-main">
+            <div class="welcome-banner">
+                <h1>Admin Panel</h1>
+                <p>Manage student enrollments and course access.</p>
+            </div>
+
+            <div class="admin-grid">
+                <!-- Activate Enrollment -->
+                <div class="admin-panel">
+                    <h3>Activate Enrollment</h3>
+                    <form id="enroll-form">
+                        <div class="form-group">
+                            <label for="enroll-email">Student Email</label>
+                            <input type="email" id="enroll-email" placeholder="student@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="enroll-course">Course</label>
+                            <select id="enroll-course" required>
+                                <option value="">Select a course</option>
+                                <option value="epp">EPP — Endless Possibilities ($150)</option>
+                                <option value="yep">YEP — Youth Empowerment ($250)</option>
+                                <option value="vav">VAV — Vis-A-Vis ($3,100)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="enroll-days">Access Duration (days)</label>
+                            <input type="number" id="enroll-days" value="60" min="1" max="365" required>
+                        </div>
+                        <button type="submit" class="btn-auth">Activate Enrollment</button>
+                    </form>
+                    <div id="enroll-message" class="admin-message"></div>
+                </div>
+
+                <!-- Recent Enrollments -->
+                <div class="admin-panel">
+                    <h3>Recent Enrollments</h3>
+                    <div id="enrollments-list" style="overflow-x: auto;">
+                        <p style="color: var(--text-secondary); font-size: 13px;">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Students -->
+            <div class="admin-panel" style="margin-bottom: 40px;">
+                <h3>Registered Students</h3>
+                <div id="students-list" style="overflow-x: auto;">
+                    <p style="color: var(--text-secondary); font-size: 13px;">Loading...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/auth-guard.js" type="module"></script>
+    <script src="js/admin.js" type="module"></script>
+</body>
+
+</html>
